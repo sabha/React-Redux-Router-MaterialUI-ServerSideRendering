@@ -1,0 +1,108 @@
+/*
+
+npm install react react-dom react-router webpack express body-parser if-env compression redux react-redux redux-logger redux-thunk morgan mongoose client-sessions bcryptjs ejs isomorphic-fetch babel-loader babel-core babel-preset-es2015 babel-preset-react --save-dev
+
+npm install material-ui --save-dev
+npm install react-tap-event-plugin --save-dev
+npm install style-loader css-loader --save-dev
+
+
+http://www.tech-dojo.org/#!/articles/56b1af3e8ff769fc29f96ae8
+
+*/
+
+/*
+import express from 'express'
+import path from 'path'
+import compression from 'compression'
+import morgan from "morgan";
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import { match, RouterContext } from 'react-router'
+import loginRoutes from './modules/login/routes'
+import configureStore from './modules/login/store/configureStore'
+import { Provider } from 'react-redux'
+
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import baseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+
+
+process.env.NODE_ENV = 'production';
+
+var app = express();
+
+app.set('views', path.join(__dirname, 'public'));
+app.set('view engine', 'ejs');
+// serve our static stuff like index.css
+app.use(express.static(path.join(__dirname, 'public')))
+
+
+//This tells express to log via morgan and morgan to log in the "combined" pre-defined format
+app.use(morgan('combined'));
+
+app.use(compression());
+
+// send all requests to index.html so browserHistory works
+let routes = loginRoutes;
+app.get('*', (req, res) => {
+  // Setting up static, global navigator object to pass user agent to material-ui. Since the function is synchronous,
+  // it is OK to do so.
+  global.navigator = { userAgent: req.headers[ 'user-agent' ] }
+
+  match({ routes, location: req.url }, (err, redirect, props) => {
+    if (err) {
+      res.status(500).send(err.message)
+    } else if (redirect) {
+      res.redirect(redirect.pathname + redirect.search)
+    } else if (props) {
+      const auth = 100; 
+      // Compile an initial state
+      const preloadedState = { auth }
+      console.log(req.headers);
+      // Create a new Redux store instance
+      const store = configureStore(preloadedState) ;
+
+      //let reduxState = escape(JSON.stringify(store.getState()));
+	    const muiTheme = getMuiTheme(baseTheme, { userAgent: req.headers['user-agent']});
+
+      // hey we made it!
+      const appHtml = renderToString(
+      	<Provider store={store}>
+          <MuiThemeProvider muiTheme={muiTheme}>
+      		  <RouterContext {...props}/>
+          </MuiThemeProvider>
+      	</Provider>
+      		)
+      res.send(renderFullPage(appHtml,store.getState()));
+
+    } else {
+      res.status(404).send('Not Found')
+    }
+  })
+})
+
+function renderFullPage(html, preloadedState) {
+  return `
+    <!doctype html>
+    <html>
+      <head>
+        <title>Child Care Online Services</title>
+      </head>
+      <body>
+        <div id="app">${html}</div>
+        <script>
+          window.__REDUX_STATE__ = ${JSON.stringify(preloadedState)}
+        </script>
+        <script src="login.js"></script>
+      </body>
+    </html>
+    `
+}
+
+var PORT = process.env.PORT || 8080
+app.listen(PORT, function() {
+  console.log('Production Express server running at localhost:' + PORT)
+})
+
+*/
