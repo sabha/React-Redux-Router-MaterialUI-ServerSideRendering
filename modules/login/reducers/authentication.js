@@ -1,9 +1,9 @@
-import { UPDATE_LOGIN_STATUS } from '../actions'
+import * as CONST from '../constants';
 
-export default function authentication(state = 0, action) {
+export default function authentication(state="Admin", action) {
   switch (action.type) {
-    case UPDATE_LOGIN_STATUS:
-      return state
+    case CONST.LOGIN:
+      return action.loginAs
     default:
       return state
   }

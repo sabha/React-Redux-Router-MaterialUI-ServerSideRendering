@@ -37,15 +37,14 @@ app.get('*', (req, res) => {
     } else if (redirect) {
       res.redirect(redirect.pathname + redirect.search)
     } else if (props) {
-      const auth = 578; 
       // Compile an initial state
-      const preloadedState = { auth }
+      const preloadedState = {authentication:'Admin'};
       // Create a new Redux store instance
       const store = configureStore(preloadedState) ;
 
-        global.navigator = {
-          userAgent: req.headers['user-agent']
-        };
+      global.navigator = {
+        userAgent: req.headers['user-agent']
+      };
       const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});  
       // hey we made it!
       const appHtml = renderToString(
@@ -57,12 +56,11 @@ app.get('*', (req, res) => {
           )
       var fs = require('fs');
       fs.writeFile("RenderedReact.txt",appHtml , function(err) {
-      if(err) {
-        return console.log(err);
-      }
-
-    console.log("The file was saved!");
-}); 
+        if(err) {
+          return console.log(err);
+        }
+        console.log("The file was saved!");
+      }); 
       res.send(renderFullPage(appHtml,store.getState()));
 
     } else {
@@ -80,6 +78,9 @@ function renderFullPage(html, preloadedState) {
       </head>
       <body>
         <div id="app">${html}</div>
+        <script>
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
+        </script>
         <script src="login.js"></script>
       </body>
     </html>

@@ -1,1 +1,10 @@
-export const UPDATE_LOGIN_STATUS = 'UPDATE_LOGIN_STATUS'
+import * as CONST from '../constants'
+
+export const loginAction = (loginAs) => {
+  return {
+    type: CONST.LOGIN,
+    loginAs,
+  };
+};
+
+ 

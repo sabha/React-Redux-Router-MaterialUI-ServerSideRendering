@@ -12,7 +12,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 
-const preloadedState = {auth:578} ;
+const preloadedState = window.__PRELOADED_STATE__ ;
 const store = configureStore(preloadedState);
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
