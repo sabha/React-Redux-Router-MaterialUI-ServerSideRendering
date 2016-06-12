@@ -5,8 +5,8 @@ import morgan from "morgan";
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
-import loginRoutes from './modules/login/routes'
-import configureStore from './modules/login/store/configureStore'
+import loginRoutes from './app/login/routes'
+import configureStore from './app/login/store/configureStore'
 import { Provider } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -41,7 +41,7 @@ app.get('*', (req, res) => {
       const preloadedState = {authentication:'Admin'};
       // Create a new Redux store instance
       const store = configureStore(preloadedState) ;
-
+      
       global.navigator = {
         userAgent: req.headers['user-agent']
       };

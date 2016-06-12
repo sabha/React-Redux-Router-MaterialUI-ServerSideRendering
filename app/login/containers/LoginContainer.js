@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { loginAction } from '../actions'
+import { loginAction , loginAsyncAction} from '../actions'
 import Login from '../components/Login'
 
 
@@ -13,7 +13,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLoginClick : (as) => {
-      dispatch(loginAction(as))
+      dispatch(loginAction(as));
+    },
+    loginAsyncAction : () => {
+      dispatch(loginAsyncAction());
     }
   }
 }

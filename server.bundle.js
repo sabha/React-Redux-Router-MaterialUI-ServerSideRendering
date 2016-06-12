@@ -316,6 +316,9 @@
 	  return {
 	    onLoginClick: function onLoginClick(as) {
 	      dispatch((0, _actions.loginAction)(as));
+	    },
+	    loginAsyncAction: function loginAsyncAction() {
+	      dispatch((0, _actions.loginAsyncAction)());
 	    }
 	  };
 	};
@@ -334,12 +337,12 @@
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+			value: true
 	});
-	exports.loginAction = undefined;
+	exports.loginAsyncAction = exports.loginAction = undefined;
 
 	var _constants = __webpack_require__(13);
 
@@ -348,22 +351,26 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	var loginAction = exports.loginAction = function loginAction(loginAs) {
-	  return {
-	    type: CONST.LOGIN,
-	    loginAs: loginAs
-	  };
+			return {
+					type: CONST.LOGIN,
+					loginAs: loginAs
+			};
+	};
+
+	var loginAsyncAction = exports.loginAsyncAction = function loginAsyncAction() {
+			return function (dispatch) {
+					setTimeout(function () {
+							// Yay! Can invoke sync or async actions with `dispatch`
+							dispatch(loginAction("Async Admin"));
+					}, 1000);
+			};
 	};
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var LOGIN = exports.LOGIN = 'Login';
+	module.exports = require("constants");
 
 /***/ },
 /* 14 */
@@ -423,7 +430,10 @@
 							}, label: 'Login As Admin', primary: true }),
 						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
 								return _this2.props.onLoginClick("Parent");
-							}, label: 'Login As Parent', secondary: true })
+							}, label: 'Login As Parent', secondary: true }),
+						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
+								return _this2.props.loginAsyncAction();
+							}, label: 'Load Data From Redit', primary: true })
 					),
 					_react2.default.createElement(
 						'h4',

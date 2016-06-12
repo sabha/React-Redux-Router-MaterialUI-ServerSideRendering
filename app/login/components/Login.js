@@ -13,6 +13,8 @@ class Login extends React.Component {
 		    	<div>
 		    		<FlatButton onClick={() => this.props.onLoginClick("Admin")} label="Login As Admin" primary={true}/>
 				    <FlatButton onClick={() => this.props.onLoginClick("Parent")} label="Login As Parent" secondary={true} />
+					<FlatButton onClick={() => this.props.loginAsyncAction()} label="Load Data From Redit" primary={true} />
+				
 				</div>
 				<h4>Loggen in As {this.props.loggedInUser}</h4>
 			</div>

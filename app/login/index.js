@@ -15,6 +15,17 @@ injectTapEventPlugin();
 const preloadedState = window.__PRELOADED_STATE__ ;
 const store = configureStore(preloadedState);
 
+//Stor the dispatch method in a variable
+let next = store.dispatch
+//Override the 
+store.dispatch = function dispatchAndLog(action) {
+  console.log('dispatching', action)
+  let result = next(action)
+  console.log('next state', store.getState());
+  console.log(result);
+  return result
+}
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 

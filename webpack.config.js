@@ -1,10 +1,11 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
+var path = require("path");
 
 module.exports = {
   entry: {
-    login:'./modules/login/index.js',
-    admin:'./modules/admin/index.js',
-    parents:'./modules/parents/index.js',
+    login:'./app/login/index.js',
+    admin:'./app/admin/index.js',
+    parents:'./app/parents/index.js',
   },
   devtool: 'source-map',
 
@@ -13,7 +14,10 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/'
   },
-
+ resolve: {
+    root: [ path.join(__dirname, 'app') ],
+    extensions: ['', '.js']
+  },
   plugins: process.env.NODE_ENV === 'production' ? [
     //new webpack.optimize.DedupePlugin(),
     //new webpack.optimize.OccurrenceOrderPlugin(),

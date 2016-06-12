@@ -1,4 +1,4 @@
-import * as CONST from '../constants';
+import * as CONST from 'constants';
 
 export default function authentication(state="Admin", action) {
   switch (action.type) {

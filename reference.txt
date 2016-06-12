@@ -9,6 +9,15 @@ npm install style-loader css-loader --save-dev
 
 http://www.tech-dojo.org/#!/articles/56b1af3e8ff769fc29f96ae8
 
+Form
+http://x-team.com/2016/02/tutorial-forms-in-react-and-redux/
+
+Isomorphic
+https://reactjsnews.com/isomorphic-react-in-real-life
+
+Isomorphic Data Fetching
+https://medium.com/@MarcFly1103/a-painkiller-for-isomorphic-data-fetching-c829ecc84274#.wm362rs1z
+
 */
 
 /*

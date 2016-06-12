@@ -89,14 +89,25 @@
 	var preloadedState = window.__PRELOADED_STATE__;
 	var store = (0, _configureStore2.default)(preloadedState);
 	
+	//Stor the dispatch method in a variable
+	var next = store.dispatch;
+	//Override the
+	store.dispatch = function dispatchAndLog(action) {
+	  console.log('dispatching', action);
+	  var result = next(action);
+	  console.log('next state', store.getState());
+	  console.log(result);
+	  return result;
+	};
+	
 	(0, _reactDom.render)(_react2.default.createElement(
-		_MuiThemeProvider2.default,
-		{ muiTheme: (0, _getMuiTheme2.default)() },
-		_react2.default.createElement(
-			_reactRedux.Provider,
-			{ store: store },
-			_react2.default.createElement(_reactRouter.Router, { routes: _routes2.default, history: _reactRouter.browserHistory })
-		)
+	  _MuiThemeProvider2.default,
+	  { muiTheme: (0, _getMuiTheme2.default)() },
+	  _react2.default.createElement(
+	    _reactRedux.Provider,
+	    { store: store },
+	    _react2.default.createElement(_reactRouter.Router, { routes: _routes2.default, history: _reactRouter.browserHistory })
+	  )
 	), document.getElementById('app'));
 
 /***/ },
@@ -35624,6 +35635,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var FORM_UPDATE_VALUE = exports.FORM_UPDATE_VALUE = 'FORM_UPDATE_VALUE';
+	var FORM_RESET = exports.FORM_RESET = 'FORM_RESET';
 	var LOGIN = exports.LOGIN = 'Login';
 
 /***/ },
@@ -35744,6 +35757,9 @@
 	  return {
 	    onLoginClick: function onLoginClick(as) {
 	      dispatch((0, _actions.loginAction)(as));
+	    },
+	    loginAsyncAction: function loginAsyncAction() {
+	      dispatch((0, _actions.loginAsyncAction)());
 	    }
 	  };
 	};
@@ -35756,12 +35772,12 @@
 /* 555 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+			value: true
 	});
-	exports.loginAction = undefined;
+	exports.loginAsyncAction = exports.loginAction = undefined;
 	
 	var _constants = __webpack_require__(551);
 	
@@ -35770,10 +35786,19 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var loginAction = exports.loginAction = function loginAction(loginAs) {
-	  return {
-	    type: CONST.LOGIN,
-	    loginAs: loginAs
-	  };
+			return {
+					type: CONST.LOGIN,
+					loginAs: loginAs
+			};
+	};
+	
+	var loginAsyncAction = exports.loginAsyncAction = function loginAsyncAction() {
+			return function (dispatch) {
+					setTimeout(function () {
+							// Yay! Can invoke sync or async actions with `dispatch`
+							dispatch(loginAction("Async Admin"));
+					}, 1000);
+			};
 	};
 
 /***/ },
@@ -35834,7 +35859,10 @@
 							}, label: 'Login As Admin', primary: true }),
 						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
 								return _this2.props.onLoginClick("Parent");
-							}, label: 'Login As Parent', secondary: true })
+							}, label: 'Login As Parent', secondary: true }),
+						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
+								return _this2.props.loginAsyncAction();
+							}, label: 'Load Data From Redit', primary: true })
 					),
 					_react2.default.createElement(
 						'h4',
