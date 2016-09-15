@@ -29,9 +29,11 @@ store.dispatch = function dispatchAndLog(action) {
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+const muiTheme = getMuiTheme({userAgent: navigator.userAgent}); 
+console.log(muiTheme)
 
 render(  
-	<MuiThemeProvider muiTheme={getMuiTheme()}>
+	<MuiThemeProvider muiTheme={muiTheme}>
 	  	<Provider store={store}>
 	    	<Router routes={LoginRoutes} history={browserHistory}/>
 	  	</Provider>

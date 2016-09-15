@@ -30,7 +30,7 @@ app.use(compression());
 // send all requests to index.html so browserHistory works
 let routes = loginRoutes;
 app.get('*', (req, res) => {
-  
+
   match({ routes, location: req.url }, (err, redirect, props) => {
     if (err) {
       res.status(500).send(err.message)
@@ -41,11 +41,13 @@ app.get('*', (req, res) => {
       const preloadedState = {authentication:'Admin'};
       // Create a new Redux store instance
       const store = configureStore(preloadedState) ;
-      
+
       global.navigator = {
         userAgent: req.headers['user-agent']
       };
-      const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});  
+      console.log('>>>>>>>> navigator.userAgent')
+      console.log(navigator.userAgent)
+      const muiTheme = getMuiTheme({userAgent: req.headers['user-agent']});
       // hey we made it!
       const appHtml = renderToString(
         <MuiThemeProvider muiTheme={muiTheme}>
@@ -60,7 +62,7 @@ app.get('*', (req, res) => {
           return console.log(err);
         }
         console.log("The file was saved!");
-      }); 
+      });
       res.send(renderFullPage(appHtml,store.getState()));
 
     } else {
@@ -88,6 +90,8 @@ function renderFullPage(html, preloadedState) {
 }
 
 var PORT = process.env.PORT || 8080
+process.env.NODE_ENV = 'production'
 app.listen(PORT, function() {
+  console.log('process.env.NODE_ENV',process.env.NODE_ENV)
   console.log('Production Express server running at localhost:' + PORT)
 })

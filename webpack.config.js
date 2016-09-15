@@ -19,6 +19,11 @@ module.exports = {
     extensions: ['', '.js']
   },
   plugins: process.env.NODE_ENV === 'production' ? [
+    new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            }
+        })
     //new webpack.optimize.DedupePlugin(),
     //new webpack.optimize.OccurrenceOrderPlugin(),
     //new webpack.optimize.UglifyJsPlugin()
@@ -26,9 +31,9 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, 
-        exclude: /node_modules/, 
-        loader: 'babel-loader?presets[]=es2015&presets[]=react' 
+      { test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader?presets[]=es2015&presets[]=react'
       }
     ]
   }

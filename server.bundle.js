@@ -122,6 +122,8 @@
 	      global.navigator = {
 	        userAgent: req.headers['user-agent']
 	      };
+	      console.log('>>>>>>>> navigator.userAgent');
+	      console.log(navigator.userAgent);
 	      var muiTheme = (0, _getMuiTheme2.default)({ userAgent: req.headers['user-agent'] });
 	      // hey we made it!
 	      var appHtml = (0, _server.renderToString)(_react2.default.createElement(
@@ -152,7 +154,9 @@
 	}
 
 	var PORT = process.env.PORT || 8080;
+	process.env.NODE_ENV = 'production';
 	app.listen(PORT, function () {
+	  console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 	  console.log('Production Express server running at localhost:' + PORT);
 	});
 
@@ -427,13 +431,7 @@
 						null,
 						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
 								return _this2.props.onLoginClick("Admin");
-							}, label: 'Login As Admin', primary: true }),
-						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
-								return _this2.props.onLoginClick("Parent");
-							}, label: 'Login As Parent', secondary: true }),
-						_react2.default.createElement(_FlatButton2.default, { onClick: function onClick() {
-								return _this2.props.loginAsyncAction();
-							}, label: 'Load Data From Redit', primary: true })
+							}, label: 'Login As Admin', primary: true })
 					),
 					_react2.default.createElement(
 						'h4',
